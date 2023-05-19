@@ -1,0 +1,27 @@
+{% extends 'base.jinja' %}
+
+{% block content %}
+ 
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Producto</th>
+                <th>Precio</th>
+                <th>Stock actual</th>
+                <th>Proveedor</th>
+            </tr>
+            <tbody>
+                {% for empleado in empleado %}
+                    <tr>
+                        <td>{{ empleado.id }}</td>
+                        <td>{{ empleado.nombre }}</td>
+                        <td>{{ empleado.apellido }}</td>
+                        <td>{{ empleado.nro_legajo }}</td>
+                        <td>{{ empleado.activo }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </thead>
+    </table>    
+{% endblock %}
