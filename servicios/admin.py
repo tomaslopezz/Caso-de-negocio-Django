@@ -9,4 +9,4 @@ class ServicioAdmin(admin.ModelAdmin):
     list_filter = ('activo',)
 
 
-admin.register(Servicio, ServicioAdmin)
+admin.site.register(Servicio, ServicioAdmin)

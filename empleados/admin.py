@@ -9,4 +9,4 @@ class EmpleadoAdmin(admin.ModelAdmin):
     list_filter = ('activo',)
 
 
-admin.register(Empleado, EmpleadoAdmin)
+admin.site.register(Empleado, EmpleadoAdmin)
