@@ -5,7 +5,7 @@ from .models import Coordinador
 # Register your models here.
 class CoordinadorAdmin(admin.ModelAdmin):
     list_display = ('nombre', 'apellido', 'fecha_alta', 'activo')
-    search_fields = ('nombre',)
+    search_fields = ('nombre', "apellido")
     list_filter = ('activo',)
 
 
