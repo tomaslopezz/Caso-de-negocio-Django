@@ -8,8 +8,16 @@ def listar_empleados(request):
 
     return render(request, 'lista_empleados.jinja', context)
 
+
 def activar_empleado(request, id):
     empleado = Empleado.objects.get(id=id)
     empleado.activo = True
     empleado.save()
     return HttpResponse("<h1>Empleado activado con exito</h1>")
+
+  
+def desactivar_empleado(request, id):
+    empleado = Empleado.objects.get(id=id)
+    empleado.activo = False
+    empleado.save()
+    return HttpResponse("<h1>Empleado desactivado con exito</h1>")
