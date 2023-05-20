@@ -1,5 +1,6 @@
-from django.shortcuts import render, HttpResponse
+from django.shortcuts import render, HttpResponse, get_object_or_404
 from .models import Empleado
+from forms import EmpleadoForm
 
 # Create your views here.
 def listar_empleados(request):
@@ -15,9 +16,28 @@ def activar_empleado(request, id):
     empleado.save()
     return HttpResponse("<h1>Empleado activado con exito</h1>")
 
-  
+
 def desactivar_empleado(request, id):
     empleado = Empleado.objects.get(id=id)
     empleado.activo = False
     empleado.save()
     return HttpResponse("<h1>Empleado desactivado con exito</h1>")
+
+
+def actualizar_empleado(request, id):
+
+    empleado = get_object_or_404(Empleado, id=id)
+
+    if request.method == 'POST':
+
+        formulario = EmpleadoForm(request.POST, instance=empleado)
+
+        if formulario.is_valid():
+            formulario.save()
+
+    else:
+        formulario = EmpleadoForm(instance=empleado)
+
+    context = {'formulario': formulario}
+
+    return render(request, 'crear_empleado.jinja', context)
