@@ -23,6 +23,5 @@ urlpatterns = [
     path('reservas/', include('reservas.urls')),
     path('empleados/', include('empleados.urls')),
     path('servicios/', include('servicios.urls')),
+    path('clientes/', include('clientes.urls'))
 ]
-
-#path('clientes/', include('clientes.urls'))
