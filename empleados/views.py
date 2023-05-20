@@ -8,7 +8,6 @@ def listar_empleados(request):
 
     return render(request, 'lista_empleados.jinja', context)
 
-
 def activar_empleado(request, id):
     empleado = Empleado.objects.get(id=id)
     empleado.activo = True
