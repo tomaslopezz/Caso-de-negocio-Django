@@ -11,5 +11,6 @@ def listar_empleados(request):
 
 def activar_empleado(request, id):
     empleado = Empleado.objects.get(id=id)
+    empleado.activo = True
     empleado.save()
     return HttpResponse("<h1>Empleado activado con exito</h1>")
