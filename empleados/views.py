@@ -40,19 +40,18 @@ def desactivar_empleado(request, id):
 
 
 def actualizar_empleado(request, id):
-
     empleado = get_object_or_404(Empleado, id=id)
 
     if request.method == 'POST':
-
         formulario = EmpleadoForm(request.POST, instance=empleado)
 
         if formulario.is_valid():
             formulario.save()
+            return HttpResponse("<h1>Empleado modificado con exito</h1>")
 
     else:
         formulario = EmpleadoForm(instance=empleado)
 
     context = {'formulario': formulario}
 
-    return render(request, 'crear_empleado.jinja', context)
+    return render(request, 'modificar_empleado.jinja', context)
