@@ -1,8 +1,23 @@
 from django.shortcuts import render, HttpResponse, get_object_or_404
+from django.http import HttpResponseRedirect
 from .models import Empleado
-from forms import EmpleadoForm
+from .forms import EmpleadoForm
 
 # Create your views here.
+
+def agregar_empleado(request):
+    formulario = EmpleadoForm()
+    if request.method == 'POST':
+        formulario = EmpleadoForm(request.POST)
+        if formulario.is_valid():
+            formulario.save()
+        else:
+            return HttpResponseRedirect('/agregar_empleado/')
+    contexto = {
+        'formulario' : formulario
+    }
+    return render(request, 'agregar_empleado.jinja', context=contexto)
+
 def listar_empleados(request):
     empleados = Empleado.objects.all()
     context = {'empleados': empleados}
