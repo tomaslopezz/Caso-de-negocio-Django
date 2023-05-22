@@ -8,6 +8,5 @@ class Servicio(models.Model):
     precio = models.IntegerField()
     activo = models.BooleanField(default=True)
 
-
-def __str__(self):
-    return f'{self.nombre}'
+    def __str__(self):
+        return f'{self.nombre}'
