@@ -19,3 +19,10 @@ def actualizar_coordinador(request, id):
     context = {'formulario': formulario}
 
     return render(request, 'modificar_coordinador.jinja', context)
+  
+  
+  def listar_coordinadores(request):
+    coordinadores = Coordinador.objects.all()
+    context = {'coordinadores':coordinadores}
+
+    return render(request,'listado', context)
