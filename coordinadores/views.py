@@ -21,8 +21,21 @@ def actualizar_coordinador(request, id):
     return render(request, 'modificar_coordinador.jinja', context)
   
   
-  def listar_coordinadores(request):
+def listar_coordinadores(request):
     coordinadores = Coordinador.objects.all()
     context = {'coordinadores':coordinadores}
 
     return render(request,'listado', context)
+
+def registrar_coordinador(request):
+    formulario = CoordinadorForm()
+    if request.method == 'POST':
+        formulario = CoordinadorForm(request.POST)
+        if formulario.is_valid():
+            formulario.save()
+        else:
+            return HttpResponse('/registrar_coordinador/')
+    context = {'formulario':formulario}
+
+    return render(request, 'registrar_coordinador.html', context)
+
