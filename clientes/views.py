@@ -1,6 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import render, HttpResponse
 from django.http import HttpResponseRedirect
 from .forms import ClienteForm
+from .models import Cliente
 
 # Create your views here.
 
@@ -16,3 +17,10 @@ def agregar_cliente(request):
         'formulario' : formulario
     }
     return render(request, 'agregar_cliente.jinja', context=contexto)
+
+  
+def activar_cliente(request, id):
+    cliente = Cliente.objects.get(id=id)
+    cliente.activo = True
+    cliente.save()
+    return HttpResponse("<h1>Cliente activado con exito</h1>")
