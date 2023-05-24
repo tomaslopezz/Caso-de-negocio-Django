@@ -1,0 +1,28 @@
+{% extends 'base.jinja' %}
+
+{% block content %}
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Apellido</th>
+                <th>DNI</th>
+                <th>Fecha De Alta</th>
+                <th>Activo</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for coordinador in coordinadores %}
+                <tr>
+                    <td>{{ coordinador.id }}</td>
+                    <td>{{ coordinador.nombre }}</td>
+                    <td>{{ coordinador.apellido }}</td>
+                    <td>{{ coordinador.dni }}</td>
+                    <td>{{ coordinador.fecha_alta }}</td>
+                    <td>{{ coordinador.activo }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
