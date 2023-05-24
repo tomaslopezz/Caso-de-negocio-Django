@@ -5,6 +5,13 @@ from .forms  import ClienteForm
 
 # Create your views here.
 
+def listar_clientes(request):
+    clientes = Cliente.objects.all()
+    context = {'clientes': clientes}
+
+    return render(request, 'lista_clientes.jinja', context)
+
+  
 def agregar_cliente(request):
     formulario = ClienteForm()
     if request.method == 'POST':
