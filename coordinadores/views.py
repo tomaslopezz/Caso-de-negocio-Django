@@ -25,7 +25,7 @@ def listar_coordinadores(request):
     coordinadores = Coordinador.objects.all()
     context = {'coordinadores':coordinadores}
 
-    return render(request,'listado', context)
+    return render(request,'lista_coordinadores.html', context)
 
 
 def registrar_coordinador(request):
