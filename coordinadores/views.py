@@ -27,6 +27,7 @@ def listar_coordinadores(request):
 
     return render(request,'listado', context)
 
+
 def registrar_coordinador(request):
     formulario = CoordinadorForm()
     if request.method == 'POST':
@@ -38,4 +39,13 @@ def registrar_coordinador(request):
     context = {'formulario':formulario}
 
     return render(request, 'registrar_coordinador.html', context)
+
+
+def desactivar_coordinador(request, id):
+    coordinador = Coordinador.objects.get(id=id)
+    coordinador.activo = False
+    coordinador.save()
+    return HttpResponse("<h1>Coordinador desactivado con exito</h1>")
+
+
 
