@@ -9,7 +9,7 @@ def listar_clientes(request):
     clientes = Cliente.objects.all()
     context = {'clientes': clientes}
 
-    return render(request, 'lista_clientes.jinja', context)
+    return render(request, 'listar_clientes.html', context)
 
   
 def agregar_cliente(request):
@@ -23,7 +23,7 @@ def agregar_cliente(request):
     contexto = {
         'formulario' : formulario
     }
-    return render(request, 'agregar_cliente.jinja', context=contexto)
+    return render(request, 'agregar_cliente.html', context=contexto)
 
   
 def activar_cliente(request, id):
@@ -48,4 +48,4 @@ def actualizar_cliente(request, id):
         
         context = {'formulario':formulario}
 
-        return render(request, 'modificar_cliente.jinja', context)
+        return render(request, 'modificar_cliente.html', context)

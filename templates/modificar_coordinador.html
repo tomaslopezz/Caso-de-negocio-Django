@@ -1,12 +1,12 @@
-{% extends 'base.jinja' %}
+{% extends 'base.html' %}
 
 {% block content %}
-<h2>Registrar Un Coordinador</h2>
+<h2>Modificar Un Coordinador</h2>
 
 <form action="" method="post">
     <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
     {{ formulario }}
-    <button type="submit">Registrar</button>
+    <button type="submit">Modificar</button>
 </form>
 
 {% endblock %}

@@ -3,7 +3,7 @@ from .models import Coordinador
 from .forms import CoordinadorForm
 
 # Create your views here.
-def actualizar_coordinador(request, id):
+def modificar_coordinador(request, id):
     coordinador = get_object_or_404(Coordinador, id=id)
 
     if request.method == 'POST':
@@ -18,17 +18,17 @@ def actualizar_coordinador(request, id):
 
     context = {'formulario': formulario}
 
-    return render(request, 'modificar_coordinador.jinja', context)
+    return render(request, 'modificar_coordinador.html', context)
   
   
 def listar_coordinadores(request):
     coordinadores = Coordinador.objects.all()
     context = {'coordinadores':coordinadores}
 
-    return render(request,'lista_coordinadores.html', context)
+    return render(request,'listar_coordinadores.html', context)
 
 
-def registrar_coordinador(request):
+def agregar_coordinador(request):
     formulario = CoordinadorForm()
     if request.method == 'POST':
         formulario = CoordinadorForm(request.POST)
@@ -38,7 +38,7 @@ def registrar_coordinador(request):
             return HttpResponse('/registrar_coordinador/')
     context = {'formulario':formulario}
 
-    return render(request, 'registrar_coordinador.html', context)
+    return render(request, 'agregar_coordinador.html', context)
 
 
 def desactivar_coordinador(request, id):
