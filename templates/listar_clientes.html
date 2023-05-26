@@ -9,6 +9,7 @@
                 <th>Nombre</th>
                 <th>Apellido</th>
                 <th>Activo</th>
+                <th>Funcionalidades</th>
             </tr>
         </thead>
         <tbody>
@@ -18,6 +19,14 @@
                     <td>{{ cliente.nombre }}</td>
                     <td>{{ cliente.apellido }}</td>
                     <td>{{ cliente.activo }}</td>
+                    <td>
+                        {% if cliente.activo %}
+                            <a href="{{ '/clientes/desactivar' }}/{{ cliente.id }}">Desactivar</a>
+                        {% else %}
+                            <a href="{{ '/clientes/activar' }}/{{ cliente.id }}">Activar</a>
+                        {% endif %}
+                            <a href="{{ '/clientes/modificar' }}/{{ cliente.id }}">Modificar</a>
+                    </td>
                 </tr>
             {% endfor %}
         </tbody>
