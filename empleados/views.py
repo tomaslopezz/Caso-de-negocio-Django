@@ -1,11 +1,11 @@
 from django.core.exceptions import ObjectDoesNotExist
 from django.shortcuts import render, HttpResponse, get_object_or_404
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, Http404
 from .models import Empleado
 from .forms import EmpleadoForm
 
-# Create your views here.
 
+# Create your views here.
 def agregar_empleado(request):
     formulario = EmpleadoForm()
     if request.method == 'POST':
@@ -15,9 +15,10 @@ def agregar_empleado(request):
         else:
             return HttpResponseRedirect('/agregar_empleado/')
     contexto = {
-        'formulario' : formulario
+        'formulario': formulario
     }
     return render(request, 'agregar_empleado.html', context=contexto)
+
 
 def listar_empleados(request):
     empleados = Empleado.objects.all()
@@ -45,19 +46,24 @@ def desactivar_empleado(request, id):
     except ObjectDoesNotExist as e:
         return HttpResponse("<h1>Empleado inexistente</h1>")
 
+
 def modificar_empleado(request, id):
-    empleado = get_object_or_404(Empleado, id=id)
+    try:
+        empleado = get_object_or_404(Empleado, id=id)
 
-    if request.method == 'POST':
-        formulario = EmpleadoForm(request.POST, instance=empleado)
+        if request.method == 'POST':
+            formulario = EmpleadoForm(request.POST, instance=empleado)
 
-        if formulario.is_valid():
-            formulario.save()
-            return HttpResponse("<h1>Empleado modificado con exito</h1>")
+            if formulario.is_valid():
+                formulario.save()
+                return HttpResponse("<h1>Empleado modificado con exito</h1>")
 
-    else:
-        formulario = EmpleadoForm(instance=empleado)
+        else:
+            formulario = EmpleadoForm(instance=empleado)
 
-    context = {'formulario': formulario}
+        context = {'formulario': formulario}
 
-    return render(request, 'modificar_empleado.html', context)
+        return render(request, 'modificar_empleado.html', context)
+
+    except Http404 as e:
+        return HttpResponse("<h1>Empleado inexistente</h1>")
