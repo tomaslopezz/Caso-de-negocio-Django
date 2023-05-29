@@ -8,5 +8,5 @@ class CoordinadorForm(forms.ModelForm):
         fields = {'nombre', 'apellido', 'dni'}
         labels = {'nombre': 'Nombre',
                   'apellido': 'Apellido',
-                  'dni': 'DNI'
+                  'dni': 'DNI',
                   }

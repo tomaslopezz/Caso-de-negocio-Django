@@ -1,3 +1,4 @@
+from django.core.exceptions import ObjectDoesNotExist
 from django.shortcuts import render, HttpResponse, get_object_or_404
 from .models import Coordinador
 from .forms import CoordinadorForm
@@ -35,17 +36,22 @@ def agregar_coordinador(request):
         if formulario.is_valid():
             formulario.save()
         else:
-            return HttpResponse('/registrar_coordinador/')
+            return HttpResponse('/agregar_coordinador/')
     context = {'formulario':formulario}
 
     return render(request, 'agregar_coordinador.html', context)
 
+def activar_coordinador(request, id):
+    try:
+        coordinador = Coordinador.objects.get(id=id)
+        coordinador.activo = True
+        coordinador.save()
+        return HttpResponse("<h1>Coordinador activado con exito</h1>")
+    except ObjectDoesNotExist as e:
+        return HttpResponse("<h1>Coordinador inexistente</h1>")
 
 def desactivar_coordinador(request, id):
     coordinador = Coordinador.objects.get(id=id)
     coordinador.activo = False
     coordinador.save()
     return HttpResponse("<h1>Coordinador desactivado con exito</h1>")
-
-
-

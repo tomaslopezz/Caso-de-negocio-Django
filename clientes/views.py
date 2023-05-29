@@ -34,7 +34,7 @@ def activar_cliente(request, id):
         cliente.save()
         return HttpResponse("<h1>Cliente activado con exito</h1>")
     except ObjectDoesNotExist as e:
-        return HttpResponse("<h1>Empleado inexistente</h1>")
+        return HttpResponse("<h1>Cliente inexistente</h1>")
 
 
 def desactivar_cliente(request, id):
