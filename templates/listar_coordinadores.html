@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 
 {% block content %}
+<a href="/coordinadores/agregar/">Agregar</a>
     <table>
         <thead>
             <tr>
@@ -20,7 +21,14 @@
                     <td>{{ coordinador.apellido }}</td>
                     <td>{{ coordinador.dni }}</td>
                     <td>{{ coordinador.fecha_alta }}</td>
-                    <td>{{ coordinador.activo }}</td>
+                    <td>
+                        {% if coordinador.activo %}
+                            <a href="{{ '/coordinadores/desactivar' }}/{{ coordinador.id }}">Desactivar</a>
+                        {% else %}
+                            <a href="{{ '/coordinadores/activar' }}/{{ coordinador.id }}">Activar</a>
+                        {% endif %}
+                            <a href="{{ '/coordinadores/modificar' }}/{{ coordinador.id }}">Modificar</a>
+                        </td>
                 </tr>
             {% endfor %}
         </tbody>
