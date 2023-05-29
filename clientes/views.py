@@ -1,6 +1,6 @@
 from django.core.exceptions import ObjectDoesNotExist
 from django.shortcuts import render, HttpResponse, get_object_or_404
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, Http404
 from .models import Cliente
 from .forms import ClienteForm 
 
@@ -48,16 +48,20 @@ def desactivar_cliente(request, id):
 
 
 def modificar_cliente(request, id):
-    cliente = get_object_or_404(Cliente, id=id)
+    try:
+        cliente = get_object_or_404(Cliente, id=id)
 
-    if request.method == 'POST':
-        formulario = ClienteForm(request.POST, instance=cliente)
+        if request.method == 'POST':
+            formulario = ClienteForm(request.POST, instance=cliente)
 
-        if formulario.is_valid():
-            formulario.save()
-            return HttpResponse("<h1>Cliente modificado con exito</h1>")
-    else:
-        formulario = ClienteForm(instance=cliente)
-        
-    context = {'formulario':formulario}
-    return render(request, 'modificar_cliente.html', context)
+            if formulario.is_valid():
+                formulario.save()
+                return HttpResponse("<h1>Cliente modificado con exito</h1>")
+        else:
+            formulario = ClienteForm(instance=cliente)
+
+        context = {'formulario':formulario}
+        return render(request, 'modificar_cliente.html', context)
+
+    except Http404 as e:
+        return HttpResponse("<h1>Cliente inexistente</h1>")
