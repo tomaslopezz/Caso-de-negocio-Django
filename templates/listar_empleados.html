@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <a href="/empleados/agregar/">Agregar</a>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Apellido</th>
+                <th>Legajo</th>
+                <th>Activo</th>
+                <th>Funcionalidades</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for empleado in empleados %}
+                <tr>
+                    <td>{{ empleado.id }}</td>
+                    <td>{{ empleado.nombre }}</td>
+                    <td>{{ empleado.apellido }}</td>
+                    <td>{{ empleado.nro_legajo }}</td>
+                    <td>{{ empleado.activo }}</td>
+                    <td>
+                    {% if empleado.activo %}
+                        <a href="{{ '/empleados/desactivar' }}/{{ empleado.id }}">Desactivar</a>
+                    {% else %}
+                        <a href="{{ '/empleados/activar' }}/{{ empleado.id }}">Activar</a>
+                    {% endif %}
+                        <a href="{{ '/empleados/modificar' }}/{{ empleado.id }}">Modificar</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>    
+{% endblock %}

@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <a href="/clientes/agregar/">Agregar</a>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Apellido</th>
+                <th>Activo</th>
+                <th>Funcionalidades</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for cliente in clientes %}
+                <tr>
+                    <td>{{ cliente.id }}</td>
+                    <td>{{ cliente.nombre }}</td>
+                    <td>{{ cliente.apellido }}</td>
+                    <td>{{ cliente.activo }}</td>
+                    <td>
+                        {% if cliente.activo %}
+                            <a href="{{ '/clientes/desactivar' }}/{{ cliente.id }}">Desactivar</a>
+                        {% else %}
+                            <a href="{{ '/clientes/activar' }}/{{ cliente.id }}">Activar</a>
+                        {% endif %}
+                            <a href="{{ '/clientes/modificar' }}/{{ cliente.id }}">Modificar</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>    
+{% endblock %}
