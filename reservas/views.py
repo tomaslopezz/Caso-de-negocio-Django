@@ -1,14 +1,20 @@
-from django.core.exceptions import ObjectDoesNotExist
 from django.shortcuts import render
-from django.http import HttpResponse
-from .models import Reserva
-
+from django.http import HttpResponseRedirect
+from .forms import ReservaForm
 
 # Create your views here.
-def eliminar_reserva(request, id):
-    try:
-        reserva = Reserva.objects.get(id=id)
-        reserva.delete()
-        return HttpResponse("<h1>Reserva eliminada con exito</h1>")
-    except ObjectDoesNotExist as e:
-        return HttpResponse("<h1>Reserva inexistente</h1>")
+def agregar_reserva(request):
+    if request.method == 'POST':
+        formulario = ReservaForm(request.POST)
+
+        if formulario.is_valid():
+            formulario.save()
+        else:
+            return HttpResponseRedirect('/agregar_reserva/')
+
+    else:
+        formulario = ReservaForm()
+
+    contexto = {'formulario': formulario}
+
+    return render(request, 'agregar_reserva.html', context=contexto)
