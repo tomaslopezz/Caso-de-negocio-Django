@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <table>
+        <thead>
+            <tr>
+                <th>Servicio</th>
+                <th>Fecha de reserva</th>
+                <th>Fecha de servicio</th>
+                <th>Cliente</th>
+                <th>Coordinador</th>
+                <th>Empleado</th>
+                <th>Activo</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for reserva in reservas %}
+                <tr>
+                    <td>{{ reserva.id }}</td>
+                    <td>{{ reserva.servicio }}</td>
+                    <td>{{ reserva.fecha_reserva }}</td>
+                    <td>{{ reserva.fecha_servicio }}</td>
+                    <td>{{ reserva.cliente }}</td>
+                    <td>{{ reserva.coordinador }}</td>
+                    <td>{{ reserva.empleado }}</td>
+                    <td>{{ reserva.activo }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>    
+{% endblock %}
