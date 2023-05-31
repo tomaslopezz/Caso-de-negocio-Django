@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 
 {% block content %}
+<a href="/reservas/agregar/">Agregar</a>
     <table>
         <thead>
             <tr>
@@ -11,6 +12,7 @@
                 <th>Coordinador</th>
                 <th>Empleado</th>
                 <th>Activo</th>
+                <th>Funcionalidades</th>
             </tr>
         </thead>
         <tbody>
@@ -24,6 +26,14 @@
                     <td>{{ reserva.coordinador }}</td>
                     <td>{{ reserva.empleado }}</td>
                     <td>{{ reserva.activo }}</td>
+                    <td>
+                        {% if coordinador.activo %}
+                            <a href="{{ '/reservas/desactivar' }}/{{ reserva.id }}">Desactivar</a>
+                        {% else %}
+                            <a href="{{ '/reservas/activar' }}/{{ reserva.id }}">Activar</a>
+                        {% endif %}
+                            <a href="{{ '/reservas/modificar' }}/{{ reserva.id }}">Modificar</a>
+                    </td>
                 </tr>
             {% endfor %}
         </tbody>
