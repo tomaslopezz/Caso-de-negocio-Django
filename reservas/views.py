@@ -1,5 +1,6 @@
+from django.core.exceptions import ObjectDoesNotExist
 from django.shortcuts import render, HttpResponse
-from django.http import HttpResponseRedirect, Http404
+from django.http import HttpResponseRedirect
 from .forms import ReservaForm
 from .models import Reserva
 
