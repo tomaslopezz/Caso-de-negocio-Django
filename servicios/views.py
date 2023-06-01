@@ -19,6 +19,10 @@ def agregar_servicio(request):
     }
     return render(request, 'agregar_servicio.html', context=contexto)
 
+def listar_servicios(request):
+    servicios = Servicio.objects.all()
+    context = {'servicios': servicios}
+    return render(request, 'listar_servicios.html', context)
 
 def activar_servicio(request, id):
     try:
@@ -28,6 +32,15 @@ def activar_servicio(request, id):
         return HttpResponse("<h1>Servicio activado con exito</h1>")
     except ObjectDoesNotExist as e:
         return HttpResponse("<h1>Servicio inexistente</h1>")
+
+def desactivar_servicio(request, id):
+    try:
+        servicio = Servicio.objects.get(id=id)
+        servicio.activo = False
+        servicio.save()
+        return HttpResponse("<h1>Servicio desactivado con exito</h1>")
+    except ObjectDoesNotExist as e:
+        return HttpResponse("<h1>Servico inexistente</h1>")
 
 
 def modificar_servicio(request, id):
