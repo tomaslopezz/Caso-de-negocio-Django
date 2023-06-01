@@ -7,6 +7,9 @@ class ReservaForm(forms.ModelForm):
         model = Reserva
         fields = ('fecha_reserva', 'fecha_servicio', 'cliente',
                    'servicio', 'empleado', 'coordinador')
-        labels = {'Fecha Reserva', 'Fecha Servicio', 'Cliente',
-                   'Servicio', 'Empleado', 'Coordinador',
-                  }
+        labels = {'fecha_reserva': 'Fecha de la Reserva',
+                  'fecha_servicio': 'Fecha del Servicio',
+                  'cliente': 'Cliente',
+                  'servicio': 'Servicio',
+                  'empleado': 'Empleado',
+                  'coordinador': 'Coordinador'}
