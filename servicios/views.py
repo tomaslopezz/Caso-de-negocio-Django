@@ -1,6 +1,9 @@
-from django.shortcuts import render, HttpResponse, get_object_or_404
-from django.http import HttpResponseRedirect, Http404
+from django.core.exceptions import ObjectDoesNotExist
+from django.shortcuts import render, HttpResponse
+from django.http import HttpResponseRedirect
+from .models import Servicio
 from .forms import ServicioForm
+
 
 # Create your views here.
 def agregar_servicio(request):
@@ -16,9 +19,20 @@ def agregar_servicio(request):
     }
     return render(request, 'agregar_servicio.html', context=contexto)
 
+
+def activar_servicio(request, id):
+    try:
+        servicio = Servicio.objects.get(id=id)
+        servicio.activo = True
+        servicio.save()
+        return HttpResponse("<h1>Servicio activado con exito</h1>")
+    except ObjectDoesNotExist as e:
+        return HttpResponse("<h1>Servicio inexistente</h1>")
+
+
 def modificar_servicio(request, id):
     try:
-        servicio = get_object_or_404(Servicio, id=id)
+        servicio = Servicio.objects.get(id=id)
 
         if request.method == 'POST':
             formulario = ServicioForm(request.POST, instance=servicio)
@@ -34,5 +48,5 @@ def modificar_servicio(request, id):
 
         return render(request, 'modificar_servicio.html', context)
 
-    except Http404 as e:
+    except ObjectDoesNotExist as e:
         return HttpResponse("<h1>Servicio inexistente</h1>")
