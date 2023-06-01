@@ -1,6 +1,8 @@
-from django.shortcuts import render, HttpResponse, get_object_or_404
+from django.shortcuts import render, HttpResponse
 from django.http import HttpResponseRedirect, Http404
 from .forms import ReservaForm
+from .models import Reserva
+
 
 # Create your views here.
 def agregar_reserva(request):
@@ -19,7 +21,7 @@ def agregar_reserva(request):
 
 def modificar_reserva(request, id):
     try:
-        reserva = get_object_or_404(Reserva, id=id)
+        reserva = Reserva.objects.get(id=id)
 
         if request.method == 'POST':
             formulario = ReservaForm(request.POST, instance=reserva)
@@ -35,5 +37,14 @@ def modificar_reserva(request, id):
 
         return render(request, 'modificar_reserva.html', context)
 
-    except Http404 as e:
+    except ObjectDoesNotExist as e:
+        return HttpResponse("<h1>Reserva inexistente</h1>")
+
+
+def eliminar_reserva(request, id):
+    try:
+        reserva = Reserva.objects.get(id=id)
+        reserva.delete()
+        return HttpResponse("<h1>Reserva eliminada con exito</h1>")
+    except ObjectDoesNotExist as e:
         return HttpResponse("<h1>Reserva inexistente</h1>")
