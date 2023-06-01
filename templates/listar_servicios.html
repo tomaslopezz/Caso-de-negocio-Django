@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 
 {% block content %}
+    <a href="/servicios/agregar/">Agregar</a>
     <table>
         <thead>
             <tr>
@@ -9,6 +10,7 @@
                 <th>Descripcion</th>
                 <th>Precio</th>
                 <th>Activo</th>
+                <th>Funcionalidades</th>
             </tr>
         </thead>
         <tbody>
@@ -19,6 +21,14 @@
                     <td>{{ servicio.descripcion }}</td>
                     <td>{{ servicio.precio }}</td>
                     <td>{{ servicio.activo }}</td>
+                    <td>
+                    {% if servicio.activo %}
+                        <a href="{{ '/servicios/desactivar' }}/{{ servicio.id }}">Desactivar</a>
+                    {% else %}
+                        <a href="{{ '/servicios/activar' }}/{{ servicio.id }}">Activar</a>
+                    {% endif %}
+                        <a href="{{ '/servicios/modificar' }}/{{ servicio.id }}">Modificar</a>
+                    </td>
                 </tr>
             {% endfor %}
         </tbody>
