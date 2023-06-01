@@ -21,6 +21,10 @@ def agregar_reserva(request):
 
     return render(request, 'agregar_reserva.html', context=contexto)
 
+def listar_reservas(request):
+    reservas = Reserva.objects.all()
+    context = {'reservas': reservas}
+    return render(request, 'listar_reservas.html', context)
 
 def modificar_reserva(request, id):
     try:
