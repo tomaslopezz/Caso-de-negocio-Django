@@ -5,13 +5,13 @@
     <table>
         <thead>
             <tr>
+                <th>ID</th>
                 <th>Servicio</th>
-                <th>Fecha de reserva</th>
-                <th>Fecha de servicio</th>
+                <th>Fecha de la reserva</th>
+                <th>Fecha del servicio</th>
                 <th>Cliente</th>
                 <th>Coordinador</th>
                 <th>Empleado</th>
-                <th>Activo</th>
                 <th>Funcionalidades</th>
             </tr>
         </thead>
@@ -25,14 +25,9 @@
                     <td>{{ reserva.cliente }}</td>
                     <td>{{ reserva.coordinador }}</td>
                     <td>{{ reserva.empleado }}</td>
-                    <td>{{ reserva.activo }}</td>
                     <td>
-                        {% if coordinador.activo %}
-                            <a href="{{ '/reservas/desactivar' }}/{{ reserva.id }}">Desactivar</a>
-                        {% else %}
-                            <a href="{{ '/reservas/activar' }}/{{ reserva.id }}">Activar</a>
-                        {% endif %}
-                            <a href="{{ '/reservas/modificar' }}/{{ reserva.id }}">Modificar</a>
+                        <a href="{{ '/reservas/modificar' }}/{{ reserva.id }}">Modificar</a>
+                        <a href="{{ '/reservas/eliminar' }}/{{ reserva.id }}">Eliminar</a>
                     </td>
                 </tr>
             {% endfor %}
