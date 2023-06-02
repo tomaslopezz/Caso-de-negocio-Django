@@ -8,8 +8,8 @@ from coordinadores.models import Coordinador
 class Reserva(models.Model):
     fecha_reserva = models.DateField()
     fecha_servicio = models.DateField()
-    cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE)
-    servicio = models.ForeignKey(Servicio, on_delete=models.CASCADE)
-    empleado = models.ForeignKey(Empleado, on_delete=models.CASCADE)
-    coordinador = models.ForeignKey(Coordinador, on_delete=models.CASCADE)
+    cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE, limit_choices_to={'activo':True})
+    servicio = models.ForeignKey(Servicio, on_delete=models.CASCADE, limit_choices_to={'activo':True})
+    empleado = models.ForeignKey(Empleado, on_delete=models.CASCADE, limit_choices_to={'activo':True})
+    coordinador = models.ForeignKey(Coordinador, on_delete=models.CASCADE, limit_choices_to={'activo':True})
     activo = models.BooleanField(default=True)
