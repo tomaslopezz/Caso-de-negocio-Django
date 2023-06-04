@@ -12,19 +12,20 @@ def agregar_reserva(request):
         if formulario.is_valid():
             formulario.save()
         else:
-            return HttpResponseRedirect('/agregar_reserva/')
-
+            return HttpResponseRedirect('/reservas/agregar')
     else:
         formulario = ReservaForm()
 
     contexto = {'formulario': formulario}
 
-    return render(request, 'agregar_reserva.html', context=contexto)
+    return render(request, 'agregar_reserva.html', contexto)
+
 
 def listar_reservas(request):
     reservas = Reserva.objects.all()
-    context = {'reservas': reservas}
-    return render(request, 'listar_reservas.html', context)
+    contexto = {'reservas': reservas}
+    return render(request, 'listar_reservas.html', contexto)
+
 
 def modificar_reserva(request, id):
     try:
@@ -40,9 +41,9 @@ def modificar_reserva(request, id):
         else:
             formulario = ReservaForm(instance=reserva)
 
-        context = {'formulario': formulario}
+        contexto = {'formulario': formulario}
 
-        return render(request, 'modificar_reserva.html', context)
+        return render(request, 'modificar_reserva.html', contexto)
 
     except ObjectDoesNotExist as e:
         return HttpResponse("<h1>Reserva inexistente</h1>")

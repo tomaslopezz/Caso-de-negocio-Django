@@ -1,13 +1,14 @@
 from django.core.exceptions import ObjectDoesNotExist
-from django.shortcuts import render, HttpResponse, get_object_or_404
-from django.http import HttpResponseRedirect, Http404
+from django.shortcuts import render, HttpResponse
+from django.http import HttpResponseRedirect
 from .models import Coordinador
 from .forms import CoordinadorForm
+
 
 # Create your views here.
 def modificar_coordinador(request, id):
     try:
-        coordinador = get_object_or_404(Coordinador, id=id)
+        coordinador = Coordinador.objects.get(id=id)
 
         if request.method == 'POST':
             formulario = CoordinadorForm(request.POST, instance=coordinador)
@@ -19,19 +20,19 @@ def modificar_coordinador(request, id):
         else:
             formulario = CoordinadorForm(instance=coordinador)
 
-        context = {'formulario': formulario}
+        contexto = {'formulario': formulario}
 
-        return render(request, 'modificar_coordinador.html', context)
+        return render(request, 'modificar_coordinador.html', contexto)
 
-    except Http404 as e:
+    except ObjectDoesNotExist as e:
         return HttpResponse("<h1>Coordinador inexistente</h1>")
   
   
 def listar_coordinadores(request):
     coordinadores = Coordinador.objects.all()
-    context = {'coordinadores':coordinadores}
+    contexto = {'coordinadores': coordinadores}
 
-    return render(request,'listar_coordinadores.html', context)
+    return render(request, 'listar_coordinadores.html', contexto)
 
 
 def agregar_coordinador(request):
@@ -41,10 +42,11 @@ def agregar_coordinador(request):
         if formulario.is_valid():
             formulario.save()
         else:
-            return HttpResponse('/agregar_coordinador/')
-    context = {'formulario':formulario}
+            return HttpResponseRedirect('/coordinadores/agregar')
+    contexto = {'formulario': formulario}
 
-    return render(request, 'agregar_coordinador.html', context)
+    return render(request, 'agregar_coordinador.html', contexto)
+
 
 def activar_coordinador(request, id):
     try:
@@ -54,6 +56,7 @@ def activar_coordinador(request, id):
         return HttpResponse("<h1>Coordinador activado con exito</h1>")
     except ObjectDoesNotExist as e:
         return HttpResponse("<h1>Coordinador inexistente</h1>")
+
 
 def desactivar_coordinador(request, id):
     coordinador = Coordinador.objects.get(id=id)

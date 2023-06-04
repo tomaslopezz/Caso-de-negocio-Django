@@ -13,17 +13,15 @@ def agregar_servicio(request):
         if formulario.is_valid():
             formulario.save()
         else:
-            return HttpResponseRedirect('/agregar_servicio/')
-    contexto = {
-        'formulario': formulario
-    }
-    return render(request, 'agregar_servicio.html', context=contexto)
+            return HttpResponseRedirect('/servicios/agregar')
+    contexto = {'formulario': formulario}
+    return render(request, 'agregar_servicio.html', contexto)
 
 
 def listar_servicios(request):
     servicios = Servicio.objects.all()
-    context = {'servicios': servicios}
-    return render(request, 'listar_servicios.html', context)
+    contexto = {'servicios': servicios}
+    return render(request, 'listar_servicios.html', contexto)
 
 
 def activar_servicio(request, id):
@@ -60,9 +58,9 @@ def modificar_servicio(request, id):
         else:
             formulario = ServicioForm(instance=servicio)
 
-        context = {'formulario': formulario}
+        contexto = {'formulario': formulario}
 
-        return render(request, 'modificar_servicio.html', context)
+        return render(request, 'modificar_servicio.html', contexto)
 
     except ObjectDoesNotExist as e:
         return HttpResponse("<h1>Servicio inexistente</h1>")
