@@ -59,7 +59,10 @@ def activar_coordinador(request, id):
 
 
 def desactivar_coordinador(request, id):
-    coordinador = Coordinador.objects.get(id=id)
-    coordinador.activo = False
-    coordinador.save()
-    return HttpResponse("<h1>Coordinador desactivado con exito</h1>")
+    try:
+        coordinador = Coordinador.objects.get(id=id)
+        coordinador.activo = False
+        coordinador.save()
+        return HttpResponse("<h1>Coordinador desactivado con exito</h1>")
+    except ObjectDoesNotExist as e:
+        return HttpResponse("<h1>Coordinador inexistente</h1>")
