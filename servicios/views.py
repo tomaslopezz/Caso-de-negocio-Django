@@ -1,7 +1,7 @@
 from django.core.exceptions import ObjectDoesNotExist
-from django.shortcuts import render, HttpResponse
+from django.shortcuts import render
 from django.http import HttpResponseRedirect
-from .models import Servicio
+from .models import Servicio, servicio_modificado, servicio_inexistente
 from .forms import ServicioForm
 
 
@@ -12,6 +12,8 @@ def agregar_servicio(request):
         formulario = ServicioForm(request.POST)
         if formulario.is_valid():
             formulario.save()
+            contexto = servicio_modificado('agregado')
+            return render(request, 'avisos.html', contexto)
         else:
             return HttpResponseRedirect('/servicios/agregar')
     contexto = {'formulario': formulario}
@@ -25,23 +27,35 @@ def listar_servicios(request):
 
 
 def activar_servicio(request, id):
+    contexto = dict()
     try:
         servicio = Servicio.objects.get(id=id)
         servicio.activo = True
         servicio.save()
-        return HttpResponse("<h1>Servicio activado con exito</h1>")
-    except ObjectDoesNotExist as e:
-        return HttpResponse("<h1>Servicio inexistente</h1>")
+
+        contexto = servicio_modificado('activado')
+
+    except ObjectDoesNotExist:
+        contexto = servicio_inexistente(id)
+
+    finally:
+        return render(request, 'avisos.html', contexto)
 
 
 def desactivar_servicio(request, id):
+    contexto = dict()
     try:
         servicio = Servicio.objects.get(id=id)
         servicio.activo = False
         servicio.save()
-        return HttpResponse("<h1>Servicio desactivado con exito</h1>")
-    except ObjectDoesNotExist as e:
-        return HttpResponse("<h1>Servicio inexistente</h1>")
+
+        contexto = servicio_modificado('desactivado')
+
+    except ObjectDoesNotExist:
+        contexto = servicio_inexistente(id)
+
+    finally:
+        return render(request, 'avisos.html', contexto)
 
 
 def modificar_servicio(request, id):
@@ -53,7 +67,8 @@ def modificar_servicio(request, id):
 
             if formulario.is_valid():
                 formulario.save()
-                return HttpResponse("<h1>Servicio modificado con exito</h1>")
+                contexto = servicio_modificado('modificado')
+                return render(request, 'avisos.html', contexto)
 
         else:
             formulario = ServicioForm(instance=servicio)
@@ -62,5 +77,6 @@ def modificar_servicio(request, id):
 
         return render(request, 'modificar_servicio.html', contexto)
 
-    except ObjectDoesNotExist as e:
-        return HttpResponse("<h1>Servicio inexistente</h1>")
+    except ObjectDoesNotExist:
+        contexto = servicio_inexistente(id)
+        return render(request, 'avisos.html', contexto)
