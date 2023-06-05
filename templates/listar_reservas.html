@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<a href="/reservas/agregar/">Agregar</a>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Servicio</th>
+                <th>Fecha de la reserva</th>
+                <th>Fecha del servicio</th>
+                <th>Cliente</th>
+                <th>Coordinador</th>
+                <th>Empleado</th>
+                <th>Funcionalidades</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for reserva in reservas %}
+                <tr>
+                    <td>{{ reserva.id }}</td>
+                    <td>{{ reserva.servicio }}</td>
+                    <td>{{ reserva.fecha_reserva }}</td>
+                    <td>{{ reserva.fecha_servicio }}</td>
+                    <td>{{ reserva.cliente }}</td>
+                    <td>{{ reserva.coordinador }}</td>
+                    <td>{{ reserva.empleado }}</td>
+                    <td>
+                        <a href="{{ '/reservas/modificar' }}/{{ reserva.id }}">Modificar</a>
+                        <a href="{{ '/reservas/eliminar' }}/{{ reserva.id }}">Eliminar</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>    
+{% endblock %}
