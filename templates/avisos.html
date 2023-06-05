@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>{{ titulo }}</h2>
+
+{% for mensaje in mensajes %}
+    <p>{{ mensaje }}</p>
+{% endfor %}
+
+<a href="{{ listado }}">Volver al listado</a>
+
+{% endblock %}
