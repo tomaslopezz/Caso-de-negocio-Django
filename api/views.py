@@ -6,28 +6,31 @@ from servicios.models import Servicio
 # Create your views here.
 def listar_servicios(request):
     servicios = Servicio.objects.all()
-    json = []
+    data = list()
 
     for servicio in servicios:
-        data = {'id': servicio.id,
-                'nombre': servicio.nombre,
-                'precio': servicio.precio}
-        json.append(data)
+        registro = {'id': servicio.id,
+                    'nombre': servicio.nombre,
+                    'precio': servicio.precio}
+        data.append(registro)
 
-    return JsonResponse(json, safe=False)
+    return JsonResponse(data, safe=False)
 
 
 def obtener_servicio(request, id):
+    data = dict()
     try:
         servicio = Servicio.objects.get(id=id)
 
-        data = {'id': servicio.id,
-                'nombre': servicio.nombre,
-                'descripcion': servicio.descripcion,
-                'precio': servicio.precio}
-
-        return JsonResponse(data)
+        data['servicio'] = [
+                            {'id': servicio.id,
+                             'nombre': servicio.nombre,
+                             'descripcion': servicio.descripcion,
+                             'precio': servicio.precio}
+                            ]
 
     except ObjectDoesNotExist as e:
-        return JsonResponse({})
+        data['servicio'] = []
 
+    finally:
+        return JsonResponse(data)

@@ -1,11 +1,11 @@
 from django.core.exceptions import ObjectDoesNotExist
-from django.shortcuts import render, HttpResponse, get_object_or_404
-from django.http import HttpResponseRedirect, Http404
+from django.shortcuts import render, HttpResponse
+from django.http import HttpResponseRedirect
 from .models import Cliente
-from .forms import ClienteForm 
+from .forms import ClienteForm
+
 
 # Create your views here.
-
 def agregar_cliente(request):
     formulario = ClienteForm()
     if request.method == 'POST':
@@ -13,18 +13,16 @@ def agregar_cliente(request):
         if formulario.is_valid():
             formulario.save()
         else:
-            return HttpResponseRedirect('/agregar_cliente/')
-    contexto = {
-        'formulario' : formulario
-    }
-    return render(request, 'agregar_cliente.html', context=contexto)
+            return HttpResponseRedirect('/clientes/listar')
+    contexto = {'formulario': formulario}
+    return render(request, 'agregar_cliente.html', contexto)
 
 
 def listar_clientes(request):
     clientes = Cliente.objects.all()
-    context = {'clientes': clientes}
+    contexto = {'clientes': clientes}
 
-    return render(request, 'listar_clientes.html', context)
+    return render(request, 'listar_clientes.html', contexto)
 
 
 def activar_cliente(request, id):
@@ -49,7 +47,7 @@ def desactivar_cliente(request, id):
 
 def modificar_cliente(request, id):
     try:
-        cliente = get_object_or_404(Cliente, id=id)
+        cliente = Cliente.objects.get(id=id)
 
         if request.method == 'POST':
             formulario = ClienteForm(request.POST, instance=cliente)
@@ -60,8 +58,8 @@ def modificar_cliente(request, id):
         else:
             formulario = ClienteForm(instance=cliente)
 
-        context = {'formulario':formulario}
-        return render(request, 'modificar_cliente.html', context)
+        contexto = {'formulario': formulario}
+        return render(request, 'modificar_cliente.html', contexto)
 
-    except Http404 as e:
+    except ObjectDoesNotExist as e:
         return HttpResponse("<h1>Cliente inexistente</h1>")

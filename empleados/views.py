@@ -1,6 +1,6 @@
 from django.core.exceptions import ObjectDoesNotExist
-from django.shortcuts import render, HttpResponse, get_object_or_404
-from django.http import HttpResponseRedirect, Http404
+from django.shortcuts import render, HttpResponse
+from django.http import HttpResponseRedirect
 from .models import Empleado
 from .forms import EmpleadoForm
 
@@ -13,18 +13,16 @@ def agregar_empleado(request):
         if formulario.is_valid():
             formulario.save()
         else:
-            return HttpResponseRedirect('/agregar_empleado/')
-    contexto = {
-        'formulario': formulario
-    }
-    return render(request, 'agregar_empleado.html', context=contexto)
+            return HttpResponseRedirect('/empleados/agregar')
+    contexto = {'formulario': formulario}
+    return render(request, 'agregar_empleado.html', contexto)
 
 
 def listar_empleados(request):
     empleados = Empleado.objects.all()
-    context = {'empleados': empleados}
+    contexto = {'empleados': empleados}
 
-    return render(request, 'listar_empleados.html', context)
+    return render(request, 'listar_empleados.html', contexto)
 
 
 def activar_empleado(request, id):
@@ -49,7 +47,7 @@ def desactivar_empleado(request, id):
 
 def modificar_empleado(request, id):
     try:
-        empleado = get_object_or_404(Empleado, id=id)
+        empleado = Empleado.objects.get(id=id)
 
         if request.method == 'POST':
             formulario = EmpleadoForm(request.POST, instance=empleado)
@@ -61,9 +59,9 @@ def modificar_empleado(request, id):
         else:
             formulario = EmpleadoForm(instance=empleado)
 
-        context = {'formulario': formulario}
+        contexto = {'formulario': formulario}
 
-        return render(request, 'modificar_empleado.html', context)
+        return render(request, 'modificar_empleado.html', contexto)
 
-    except Http404 as e:
+    except ObjectDoesNotExist as e:
         return HttpResponse("<h1>Empleado inexistente</h1>")
