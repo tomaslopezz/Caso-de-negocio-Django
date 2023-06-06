@@ -1,6 +1,7 @@
 from django.core.exceptions import ObjectDoesNotExist
 from django.http import JsonResponse
 from servicios.models import Servicio
+from clientes.models import Cliente
 
 
 # Create your views here.
@@ -34,3 +35,19 @@ def obtener_servicio(request, id):
 
     finally:
         return JsonResponse(data)
+
+
+def listar_clientes(request):
+    clientes = Cliente.objects.all()
+    data = list()
+
+    for cliente in clientes:
+        registro = {
+            'id': cliente.id,
+            'nombre' : cliente.nombre,
+            'apellido' : cliente.apellido,
+            'activo' : cliente.activo
+        }
+        data.append(registro)
+    
+    return JsonResponse(data,safe=False)
