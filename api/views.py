@@ -1,6 +1,7 @@
 from django.core.exceptions import ObjectDoesNotExist
 from django.http import JsonResponse
 from servicios.models import Servicio
+from clientes.models import Cliente
 from coordinadores.models import Coordinador
 
 
@@ -35,6 +36,22 @@ def obtener_servicio(request, id):
 
     finally:
         return JsonResponse(data)
+  
+  
+def listar_clientes(request):
+    clientes = Cliente.objects.all()
+    data = list()
+
+    for cliente in clientes:
+        registro = {
+            'id': cliente.id,
+            'nombre' : cliente.nombre,
+            'apellido' : cliente.apellido,
+            'activo' : cliente.activo
+        }
+        data.append(registro)
+    
+    return JsonResponse(data,safe=False)  
 
 
 def listar_coordinadores(request):
@@ -50,4 +67,4 @@ def listar_coordinadores(request):
                     'activo': coordinador.activo}
         data.append(registro)
 
-    return JsonResponse(data, safe=True)
+    return JsonResponse(data, safe=False)
