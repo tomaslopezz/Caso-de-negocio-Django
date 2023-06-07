@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -30,8 +30,12 @@
             </div>
         </nav>
         <div class="container">
-            {% block content %}
-            {% endblock %}
+            <div class="container text-center">
+                <div class="col align-self-center">
+                {% block content %}
+                {% endblock %}
+                </div>
+            </div>
         </div>
     </body>
 </html>

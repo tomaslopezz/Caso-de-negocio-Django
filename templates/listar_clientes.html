@@ -1,9 +1,10 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <a href="/clientes/agregar/">Agregar</a>
-    <table>
-        <thead>
+    <h2 class="mt-4">Listado de Clientes</h2>
+    <a type="button" class="btn btn-primary mb-4" href="/clientes/agregar/">Agregar</a>
+    <table class="table table-striped table-bordered">
+        <thead class="table-light">
             <tr>
                 <th>ID</th>
                 <th>Nombre</th>
@@ -18,15 +19,23 @@
                     <td>{{ cliente.id }}</td>
                     <td>{{ cliente.nombre }}</td>
                     <td>{{ cliente.apellido }}</td>
-                    <td>{{ cliente.activo }}</td>
-                    <td>
-                        {% if cliente.activo %}
-                            <a href="{{ '/clientes/desactivar' }}/{{ cliente.id }}">Desactivar</a>
-                        {% else %}
-                            <a href="{{ '/clientes/activar' }}/{{ cliente.id }}">Activar</a>
-                        {% endif %}
-                            <a href="{{ '/clientes/modificar' }}/{{ cliente.id }}">Modificar</a>
-                    </td>
+                    {% if cliente.activo %}
+                        <td><img src="{{ static('images/check.png') }}"></td>
+                        <td>
+                            <a type="button" class="btn btn-danger" href="{{ '/clientes/desactivar' }}/{{ cliente.id }}">Desactivar</a>
+                            <a type="button" class="btn btn-primary" href="{{ '/clientes/modificar' }}/{{ cliente.id }}">
+                                <img src="{{ static('images/edit.png') }}">
+                            </a>
+                        </td>
+                    {% else %}
+                        <td><img src="{{ static('images/multiply.png') }}"></td>
+                        <td>
+                            <a type="button" class="btn btn-success" href="{{ '/clientes/activar' }}/{{ cliente.id }}">Activar</a>
+                            <a type="button" class="btn btn-primary" href="{{ '/clientes/modificar' }}/{{ cliente.id }}">
+                                <img src="{{ static('images/edit.png') }}">
+                            </a>
+                        </td>
+                    {% endif %}
                 </tr>
             {% endfor %}
         </tbody>
