@@ -1,7 +1,7 @@
 from django.core.exceptions import ObjectDoesNotExist
-from django.shortcuts import render, HttpResponse
+from django.shortcuts import render
 from django.http import HttpResponseRedirect
-from .models import Coordinador
+from .models import Coordinador, coordinador_modificado, coordinador_inexistente
 from .forms import CoordinadorForm
 
 
@@ -15,7 +15,8 @@ def modificar_coordinador(request, id):
 
             if formulario.is_valid():
                 formulario.save()
-                return HttpResponse("<h1>Coordinador modificado con exito</h1>")
+                contexto = coordinador_modificado('modificado')
+                return render(request, 'avisos.html', contexto)
 
         else:
             formulario = CoordinadorForm(instance=coordinador)
@@ -24,8 +25,9 @@ def modificar_coordinador(request, id):
 
         return render(request, 'modificar_coordinador.html', contexto)
 
-    except ObjectDoesNotExist as e:
-        return HttpResponse("<h1>Coordinador inexistente</h1>")
+    except ObjectDoesNotExist:
+        contexto = coordinador_inexistente(id)
+        return render(request, 'avisos.html', contexto)
   
   
 def listar_coordinadores(request):
@@ -41,6 +43,8 @@ def agregar_coordinador(request):
         formulario = CoordinadorForm(request.POST)
         if formulario.is_valid():
             formulario.save()
+            contexto = coordinador_modificado('agregado')
+            return render(request, 'avisos.html', contexto)
         else:
             return HttpResponseRedirect('/coordinadores/agregar')
     contexto = {'formulario': formulario}
@@ -49,20 +53,32 @@ def agregar_coordinador(request):
 
 
 def activar_coordinador(request, id):
+    contexto = dict()
     try:
         coordinador = Coordinador.objects.get(id=id)
         coordinador.activo = True
         coordinador.save()
-        return HttpResponse("<h1>Coordinador activado con exito</h1>")
-    except ObjectDoesNotExist as e:
-        return HttpResponse("<h1>Coordinador inexistente</h1>")
+
+        contexto = coordinador_modificado('activado')
+
+    except ObjectDoesNotExist:
+        contexto = coordinador_inexistente(id)
+
+    finally:
+        return render(request, 'avisos.html', contexto)
 
 
 def desactivar_coordinador(request, id):
+    contexto = dict()
     try:
         coordinador = Coordinador.objects.get(id=id)
         coordinador.activo = False
         coordinador.save()
-        return HttpResponse("<h1>Coordinador desactivado con exito</h1>")
-    except ObjectDoesNotExist as e:
-        return HttpResponse("<h1>Coordinador inexistente</h1>")
+
+        contexto = coordinador_modificado('desactivado')
+
+    except ObjectDoesNotExist:
+        contexto = coordinador_inexistente(id)
+
+    finally:
+        return render(request, 'avisos.html', contexto)
