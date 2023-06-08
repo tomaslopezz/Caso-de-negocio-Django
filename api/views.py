@@ -3,7 +3,7 @@ from django.http import JsonResponse
 from servicios.models import Servicio
 from clientes.models import Cliente
 from coordinadores.models import Coordinador
-
+from empleados.models import Empleado
 
 # Create your views here.
 def listar_servicios(request):
@@ -65,6 +65,20 @@ def listar_coordinadores(request):
                     'dni': coordinador.dni,
                     'fecha_alta': coordinador.fecha_alta,
                     'activo': coordinador.activo}
+        data.append(registro)
+
+    return JsonResponse(data, safe=False)
+
+def listar_empleados(request):
+    empleados = Empleado.objects.all()
+    data = list()
+
+    for empleado in empleados:
+        registro = {'id': empleado.id,
+                    'nombre': empleado.nombre,
+                    'apellido': empleado.apellido,
+                    'nro_legajo': empleado.nro_legajo,
+                    'activo': empleado.activo}
         data.append(registro)
 
     return JsonResponse(data, safe=False)
