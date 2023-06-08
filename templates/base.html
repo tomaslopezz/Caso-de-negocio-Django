@@ -1,28 +1,41 @@
-<html lang="en">
-<head>
-    <title>Eventos Salta</title>
-</head>
-<body>
-    <nav>
-        <ul>
-            <li>
-                <a href="/empleados/listar/">Empleados</a>
-            </li>
-            <li>
-                <a href="/coordinadores/listar/">Coordinadores</a>
-            </li>
-            <li>
-                <a href="/clientes/listar/">Clientes</a>
-            </li>
-            <li>
-                <a href="/servicios/listar/">Servicios</a>
-            </li>
-            <li>
-                <a href="/reservas/listar/">Reservas</a>
-            </li>
-        </ul>
-    </nav>
-    {% block content %}
-    {% endblock %}
-</body>
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Eventos Salta</title>
+
+        <!--Bootstrap CSS-->
+        <link rel="stylesheet" type="text/css" href="{{ static('bootstrap/css/bootstrap.min.css') }}">
+        <!--Bootstrap JS-->
+        <script src="{{ static('bootstrap/js/bootstrap.bundle.js') }}"></script>
+    </head>
+    <body>
+        <nav class="navbar navbar-expand-lg bg-body-tertiary">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="/">Eventos Salta</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                    <div class="navbar-nav">
+                        <a class="nav-link active" aria-current="page" href="/">Home</a>
+                        <a class="nav-link" href="/empleados/listar/">Empleados</a>
+                        <a class="nav-link" href="/coordinadores/listar/">Coordinadores</a>
+                        <a class="nav-link" href="/clientes/listar/">Clientes</a>
+                        <a class="nav-link" href="/servicios/listar/">Servicios</a>
+                        <a class="nav-link" href="/reservas/listar/">Reservas</a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+        <div class="container">
+            <div class="container text-center">
+                <div class="col align-self-center">
+                {% block content %}
+                {% endblock %}
+                </div>
+            </div>
+        </div>
+    </body>
 </html>

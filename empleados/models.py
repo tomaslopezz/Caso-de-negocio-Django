@@ -10,3 +10,28 @@ class Empleado(models.Model):
 
     def __str__(self):
         return f'{self.nombre} {self.apellido}'
+
+
+def empleado_modificado(cambio: str) -> dict:
+    info = {
+        'titulo': f'Empleado {cambio.title()}',
+        'listado': '/empleados/listar',
+        'mensajes': [
+            f'El empleado ha sido {cambio.lower()} con éxito'
+        ]
+    }
+
+    return info
+
+
+def empleado_inexistente(id: int) -> dict:
+    info = {
+        'titulo': 'Empleado Inexistente',
+        'listado': '/empleados/listar',
+        'mensajes': [
+            f'Lo sentimos, no hemos podido encontrar el empleado que buscabas (Con id: {id})',
+            'Prueba intentando con otro'
+        ]
+    }
+
+    return info

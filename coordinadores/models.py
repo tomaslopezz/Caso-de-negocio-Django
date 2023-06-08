@@ -11,3 +11,28 @@ class Coordinador(models.Model):
 
     def __str__(self):
         return f'{self.nombre} {self.apellido}'
+
+
+def coordinador_modificado(cambio: str) -> dict:
+    info = {
+        'titulo': f'Coordinador {cambio.title()}',
+        'listado': '/coordinadores/listar',
+        'mensajes': [
+            f'El coordinador ha sido {cambio.lower()} con éxito'
+        ]
+    }
+
+    return info
+
+
+def coordinador_inexistente(id: int) -> dict:
+    info = {
+        'titulo': 'Coordinador Inexistente',
+        'listado': '/coordinadores/listar',
+        'mensajes': [
+            f'Lo sentimos, no hemos podido encontrar el coordinador que buscabas (Con id: {id})',
+            'Prueba intentando con otro'
+        ]
+    }
+
+    return info

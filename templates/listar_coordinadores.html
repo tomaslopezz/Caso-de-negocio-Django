@@ -1,9 +1,10 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<a href="/coordinadores/agregar/">Agregar</a>
-    <table>
-        <thead>
+<h2 class="mt-4">Listado de Coordinadores</h2>
+<a type="button" class="btn btn-primary mb-4" href="/coordinadores/agregar/">Agregar</a>
+<table class="table table-striped table-bordered">
+    <thead class="table-light">
             <tr>
                 <th>ID</th>
                 <th>Nombre</th>
@@ -22,16 +23,24 @@
                     <td>{{ coordinador.apellido }}</td>
                     <td>{{ coordinador.dni }}</td>
                     <td>{{ coordinador.fecha_alta }}</td>
-                    <td>{{ coordinador.activo }}</td>
-                    <td>
-                        {% if coordinador.activo %}
-                            <a href="{{ '/coordinadores/desactivar' }}/{{ coordinador.id }}">Desactivar</a>
-                        {% else %}
-                            <a href="{{ '/coordinadores/activar' }}/{{ coordinador.id }}">Activar</a>
-                        {% endif %}
-                            <a href="{{ '/coordinadores/modificar' }}/{{ coordinador.id }}">Modificar</a>
-                    </td>
-                </tr>
+                     {% if coordinador.activo %}
+                        <td><img src="{{ static('images/check.png') }}"></td>
+                        <td>
+                            <a type="button" class="btn btn-danger" href="{{ '/coordinadores/desactivar' }}/{{ coordinador.id }}">Desactivar</a>
+                            <a type="button" class="btn btn-primary" href="{{ '/coordinadores/modificar' }}/{{ coordinador.id }}">
+                                <img src="{{ static('images/edit.png') }}">
+                            </a>
+                        </td>
+                    {% else %}
+                        <td><img src="{{ static('images/multiply.png') }}"></td>
+                        <td>
+                            <a type="button" class="btn btn-success" href="{{ '/coordinadores/activar' }}/{{ coordinador.id }}">Activar</a>
+                            <a type="button" class="btn btn-primary" href="{{ '/coordinadores/modificar' }}/{{ coordinador.id }}">
+                                <img src="{{ static('images/edit.png') }}">
+                            </a>
+                        </td>
+                    {% endif %}
+               </tr>
             {% endfor %}
         </tbody>
     </table>

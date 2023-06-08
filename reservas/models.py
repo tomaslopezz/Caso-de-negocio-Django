@@ -13,3 +13,29 @@ class Reserva(models.Model):
     servicio = models.ForeignKey(Servicio, on_delete=models.CASCADE, limit_choices_to={'activo': True})
     empleado = models.ForeignKey(Empleado, on_delete=models.CASCADE, limit_choices_to={'activo': True})
     coordinador = models.ForeignKey(Coordinador, on_delete=models.CASCADE, limit_choices_to={'activo': True})
+
+
+def reserva_modificada(cambio: str) -> dict:
+    info = {
+        'titulo': f'Reserva {cambio.title()}',
+        'listado': '/reservas/listar',
+        'mensajes': [
+            f'La reserva ha sido {cambio.lower()} con éxito'
+        ]
+    }
+
+    return info
+
+
+def reserva_inexistente(id: int) -> dict:
+    info = {
+        'titulo': 'Reserva Inexistente',
+        'listado': '/reservas/listar',
+        'mensajes': [
+            f'Lo sentimos, no hemos podido encontrar la reserva que buscabas (Con id: {id})',
+            'Tal vez la reserva no existe o ya fue eliminada',
+            'Prueba intentando con otra'
+        ]
+    }
+
+    return info
