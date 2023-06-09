@@ -1,9 +1,10 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <a href="/servicios/agregar/">Agregar</a>
-    <table>
-        <thead>
+    <h2 class="mt-4">Listado de Servicios</h2>
+    <a type="button" class="btn btn-primary mb-4" href="/servicios/agregar/">Agregar</a>
+    <table class="table table-striped table-bordered">
+        <thead class="table-light">
             <tr>
                 <th>ID</th>
                 <th>Nombre</th>
@@ -20,15 +21,23 @@
                     <td>{{ servicio.nombre }}</td>
                     <td>{{ servicio.descripcion }}</td>
                     <td>{{ servicio.precio }}</td>
-                    <td>{{ servicio.activo }}</td>
-                    <td>
                     {% if servicio.activo %}
-                        <a href="{{ '/servicios/desactivar' }}/{{ servicio.id }}">Desactivar</a>
-                    {% else %}
-                        <a href="{{ '/servicios/activar' }}/{{ servicio.id }}">Activar</a>
-                    {% endif %}
-                        <a href="{{ '/servicios/modificar' }}/{{ servicio.id }}">Modificar</a>
+                    <td><img src="{{ static('images/check.png') }}"></td>
+                    <td>
+                        <a type="button" class="btn btn-danger" href="{{ '/servicios/desactivar' }}/{{ servicio.id }}">Desactivar</a>
+                        <a type="button" class="btn btn-primary mt-1" href="{{ '/servicios/modificar' }}/{{ servicio.id }}">
+                            <img src="{{ static('images/edit.png') }}">
+                        </a>
                     </td>
+                    {% else %}
+                        <td><img src="{{ static('images/multiply.png') }}"></td>
+                        <td>
+                            <a type="button" class="btn btn-success" href="{{ '/servicios/activar' }}/{{ servicio.id }}">Activar</a>
+                            <a type="button" class="btn btn-primary mt-1" href="{{ '/servicios/modificar' }}/{{ servicio.id }}">
+                                <img src="{{ static('images/edit.png') }}">
+                            </a>
+                        </td>
+                    {% endif %}
                 </tr>
             {% endfor %}
         </tbody>

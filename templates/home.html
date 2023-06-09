@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Bienvenido a Eventos Salta</h1>
+<div class="col-sm-6 col-md-8 col-lg-9 mx-auto">
+    <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <img src="{{ static('images/evento1.jpg') }}" class="rounded img-fluid rounded mx-auto d-block" alt="...">
+          </div>
+          <div class="carousel-item">
+            <img src="{{ static('images/evento2.jpg') }}" class="rounded img-fluid rounded mx-auto d-block" alt="...">
+          </div>
+          <div class="carousel-item">
+            <img src="{{ static('images/evento3.jpg') }}" class="rounded img-fluid rounded mx-auto d-block" alt="...">
+          </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
+      </div>
+</div>
+<p class="text-center fs-5">Nuestro proyecto consiste en una aplicación web que permite gestionar reservas de eventos a través de una interfaz de administración. Se pueden realizar operaciones CRUD en diferentes modulos como servicios, clientes, coordinadores y empleados, con la posibilidad de restaurar registros no activos. Además, se proporcionan API endpoints para acceder a la lista de servicios y al detalle de un servicio específico. Los usuarios podran revisar un práctico listado con todas las reservas realizadas por los clientes, manteniendo un registro claro y organizado gracias a la interfaz de la página que se presenta con un diseño sencillo y ordenado, facilitando la navegación y comprensión de las distintas funcionalidades disponibles. </p>
+{% endblock %}

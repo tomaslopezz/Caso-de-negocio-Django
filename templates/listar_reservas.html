@@ -1,9 +1,10 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<a href="/reservas/agregar/">Agregar</a>
-    <table>
-        <thead>
+<h2 class="mt-4">Listado de Reservas de Servicios</h2>
+<a type="button" class="btn btn-primary mb-4" href="/reservas/agregar/">Agregar</a>
+<table class="table table-striped table-bordered">
+    <thead class="table-light">
             <tr>
                 <th>ID</th>
                 <th>Servicio</th>
@@ -26,8 +27,31 @@
                     <td>{{ reserva.coordinador }}</td>
                     <td>{{ reserva.empleado }}</td>
                     <td>
-                        <a href="{{ '/reservas/modificar' }}/{{ reserva.id }}">Modificar</a>
-                        <a href="{{ '/reservas/eliminar' }}/{{ reserva.id }}">Eliminar</a>
+                        <a type="button" class="btn btn-primary" href="{{ '/reservas/modificar' }}/{{ reserva.id }}">
+                            <img src="{{ static('images/edit.png') }}">
+                        </a>
+                        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#staticBackdrop-{{ reserva.id }}">
+                            Eliminar
+                        </button>
+
+                        <div class="modal fade" id="staticBackdrop-{{ reserva.id }}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h1 class="modal-title fs-5" id="staticBackdropLabel-{{ reserva.id }}">Eliminar Reserva</h1>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                    ¿Está seguro que desea eliminar la reserva? Esta acción no se podrá deshacer.
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                        <a type="button" class="btn btn-danger" href="{{ '/reservas/eliminar' }}/{{ reserva.id }}">Eliminar</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
                     </td>
                 </tr>
             {% endfor %}
