@@ -24,9 +24,9 @@ Aplicación Web desarollada para Bootcamp Django - Alkemy. Caso de negocio N°1 
 [Documentacion](#documentacion)
 
 ## Autores
-- Matias Gomez
-- Tomas Lopez
-- Ariel Herrera
+- [Matías Gómez](https://github.com/Mati2173)
+- [Tomas Lopez](https://github.com/tomaslopezz)
+- [Ariel Herrera](https://github.com/arielfherrera)
 
 ## Endpoints
 
@@ -112,7 +112,7 @@ Aplicación Web desarollada para Bootcamp Django - Alkemy. Caso de negocio N°1 
     python manage.py runserver
     ```
 
-9. Visita [http://localhost:8000/api](http://localhost:8000) en tu navegador.
+9. Visita [http://localhost:8000/](http://localhost:8000) en tu navegador.
 
 ## Documentacion
 
