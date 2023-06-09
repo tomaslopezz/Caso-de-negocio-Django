@@ -1,1 +1,0 @@
-# Caso-de-negocio-Django
