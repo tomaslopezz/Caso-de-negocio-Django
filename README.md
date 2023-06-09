@@ -1,6 +1,10 @@
 # Eventos Salta
 Aplicación Web desarollada para Bootcamp Django - Alkemy. Caso de negocio N°1 - App de Eventos
 
+- Comisión: 5
+- Squad: 1
+- Mentor: Alejandro Palacios
+
 
 ## Conocimientos aplicados
 
