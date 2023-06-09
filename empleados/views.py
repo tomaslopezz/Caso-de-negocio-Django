@@ -13,11 +13,14 @@ def agregar_empleado(request):
 
     Método HTTP admitidos: GET, POST.
 
-    Si el método es POST y el formulario es válido, el empleado se guarda en la base de datos.
-    Si el método es POST y el formulario no es válido, se redirige a la página de agregar empleado para corregir los errores.
+    Si el método es POST y el formulario es válido, el empleado se guarda en la base de datos y se redirige a la
+    página de avisos.
+    Si el método es POST y el formulario no es válido, se redirige a la página de agregar empleado para corregir
+    los errores.
     
-    parametro request: Objeto HttpRequest que contiene los datos de la solicitud.
-    return: HttpResponse con la representación de la plantilla 'agregar_empleado.html' que muestra un formulario para agrgar un empleado.
+    Parámetro request: Objeto HttpRequest que contiene los datos de la solicitud.
+    return: HttpResponse con la representación de la plantilla 'agregar_empleado.html' que muestra un formulario para
+    agregar un empleado.
     """
     formulario = EmpleadoForm()
     if request.method == 'POST':
@@ -36,10 +39,11 @@ def listar_empleados(request):
     """
     Vista para listar todos los empleados.
 
-    Recupera todos los objetos Empleado de la base de datos y los pasa como contexto a la plantilla 'listar_empleados.html'.
+    Recupera todos los objetos Empleado de la base de datos y los pasa como contexto a la
+    plantilla 'listar_empleados.html'.
 
-    parametro request: Objeto HttpRequest que contiene los datos de la solicitud.
-    return: HttpResponse con la representación de la plantilla 'listar_empleados.html' que muestra la lista de empleados.
+    Parámetro request: Objeto HttpRequest que contiene los datos de la solicitud.
+    return: HttpResponse con la representación de la plantilla 'listar_empleados.html' que muestra la lista de empleados
     """
     empleados = Empleado.objects.all()
     contexto = {'empleados': empleados}
@@ -56,9 +60,9 @@ def activar_empleado(request, id):
     Retorna una HttpResponse con un mensaje de éxito si el empleado se activó correctamente.
     Retorna una HttpResponse con un mensaje de error si el empleado no existe.
 
-    parametro request: Objeto HttpRequest que contiene los datos de la solicitud.
-    parametro id: ID del empleado a activar.
-    return: HttpResponse con un mensaje de éxito o error y la opcion de regresar al listado.
+    Parámetro request: Objeto HttpRequest que contiene los datos de la solicitud.
+    Parámetro id: ID del empleado a activar.
+    return: HttpResponse con un mensaje de éxito o error y la opción de regresar al listado.
     """
     contexto = dict()
     try:
@@ -84,9 +88,9 @@ def desactivar_empleado(request, id):
     Retorna una HttpResponse con un mensaje de éxito si el empleado se desactivó correctamente.
     Retorna una HttpResponse con un mensaje de error si el empleado no existe.
 
-    parametro request: Objeto HttpRequest que contiene los datos de la solicitud.
-    parametro id: ID del empleado a desactivar.
-    return: HttpResponse con un mensaje de éxito o error y la opcion de regresar al listado.
+    Parámetro request: Objeto HttpRequest que contiene los datos de la solicitud.
+    Parámetro id: ID del empleado a desactivar.
+    return: HttpResponse con un mensaje de éxito o error y la opción de regresar al listado.
     """
     contexto = dict()
     try:
@@ -114,9 +118,10 @@ def modificar_empleado(request, id):
     Si el método de la solicitud es GET, se muestra el formulario con los datos actuales del empleado.
     Retorna una HttpResponse con un mensaje de error si el empleado no existe.
 
-    parametro request: Objeto HttpRequest que contiene los datos de la solicitud.
-    parametro id: ID del empleado a modificar.
-    return: HttpResponse con un mensaje de éxito o error, o una representación de la plantilla 'modificar_empleado.html' con el formulario y el contexto.
+    Parámetro request: Objeto HttpRequest que contiene los datos de la solicitud.
+    Parámetro id: ID del empleado a modificar.
+    return: HttpResponse con un mensaje de éxito o error, o una representación de la plantilla 'modificar_empleado.html'
+    con el formulario y el contexto.
     """
     try:
         empleado = Empleado.objects.get(id=id)
